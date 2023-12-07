@@ -12,7 +12,7 @@ class GPUStatusMonitor(object):
         self.node_list = []
         for i in hosts:
             if '|' in i:
-                hname, pwd = i.split('|')
+                hname, pwd = i.strip().split('|')
                 self.node_list.append(RemoteGPUQuery(hname, pwd))
             else:
                 self.node_list.append(RemoteGPUQuery(i.strip()))
