@@ -65,7 +65,7 @@ class GradioAPP(object):
                         gname = sgpu['name']
                         vram = sgpu['memory']
                         used_vram = vram['used_memory']
-                        total_varam = vram['free_memory']
+                        total_varam = vram['total']
                         utilization = sgpu['utilization']
                         
                         print('\tname', '==>', gname)
