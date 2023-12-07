@@ -11,7 +11,11 @@ class GPUStatusMonitor(object):
             hosts = f.readlines()
         self.node_list = []
         for i in hosts:
-            self.node_list.append(RemoteGPUQuery(i.strip()))
+            if '|' in i:
+                hname, pwd = i.split('|')
+                self.node_list.append(RemoteGPUQuery(hname, pwd))
+            else:
+                self.node_list.append(RemoteGPUQuery(i.strip()))
         
         self.lock = threading.Lock()
         self._thread = None
@@ -52,9 +56,10 @@ class GPUStatusMonitor(object):
 
 
 class RemoteGPUQuery(object):
-    def __init__(self, hostname) -> None:
+    def __init__(self, hostname, passwd=None) -> None:
         
         self.host_nickname = hostname
+        self.passwd = passwd
         self.ssh_client = paramiko.SSHClient()
         self.ssh_config = paramiko.SSHConfig()
         self.user_config_file = os.path.expanduser('~/.ssh/config')
@@ -73,7 +78,7 @@ class RemoteGPUQuery(object):
 
     def connect(self):
         self.ssh_client.connect(hostname=self.user_config['hostname'], username=self.user_config['user'],
-                                port = self.user_config['port'], timeout=self.timeout)
+                                port = self.user_config['port'], timeout=self.timeout, password=self.passwd)
         
     def check_connection(self):
         if self.ssh_client.get_transport() is not None and self.ssh_client.get_transport().is_active():
