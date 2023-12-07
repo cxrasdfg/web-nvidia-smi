@@ -31,7 +31,7 @@ class GradioAPP(object):
             print('Try to exit')
             self.monitor.stop_update_loop()
             # self.web_demo.server.shutdown()
-            # self.web_demo.close()
+            self.web_demo.close()
             print('bye bye')
             os._exit(0)
 
@@ -131,7 +131,7 @@ class GradioAPP(object):
                             gname = sgpu['name']
                             vram = sgpu['memory']
                             used_vram = vram['used_memory']
-                            total_varam = vram['free_memory']
+                            total_varam = vram['total']
                             utils = sgpu['utilization']
                             
                             print('\tname', '==>', gname)

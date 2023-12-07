@@ -69,7 +69,6 @@ class RemoteGPUQuery(object):
 
         # Set the SSH configuration options from the parsed file
         self.ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        # ssh_sess = ssh_client.connect(hostname='204', username='cxr',)
         self.user_config = self.ssh_config.lookup(hostname)
         self.timeout=10
         self.cur_gpu_state = None
