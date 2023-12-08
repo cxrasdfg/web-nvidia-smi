@@ -35,8 +35,8 @@ class GradioAPP(object):
             print('bye bye')
             os._exit(0)
 
-    def update_table(self, k, v): 
-        print(k,v)
+    def update_table(self): 
+        # print(k,v)
         pd_list = self.get_pd()
 
         return pd_list
